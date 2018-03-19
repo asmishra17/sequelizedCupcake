@@ -16,7 +16,7 @@
 				<div class="col-xs-3 text-center">
 					<form class="devour-form" class="button-size">
 						<input input type="hidden" class="burger_id" type="text" value={{this.id}}><br>
-						<button type="submit" class="btn btn-default devour-button">Devour it!</button>
+						<button type="submit" id = "{{this.id}}" class="btn btn-default devourIt">Devour it!</button>
 					</form>
 				</div>
 				{{/unless}}
@@ -45,29 +45,26 @@
 	</div>
 </div>
 
+
 <script>
-	// making sure DOM is fully loaded
-$(function() {
-
-    $('.devour-button').on('click', function (event) {
-        
-        var id = $(this).attr.('id');
-
-        console.log("TESTETSTTSETS")
-        
-        var newDevourState = {
-            devoured: true
-        };
-
-        $.ajax('/burgers/updat/' + id, {
-            type: 'PUT',
-            data: newDevourState
-        }).then(
-            function() {
-                console.log(`changed devoured to ${newDevourState}`);
-                location.reload();
-            }
-        )
-    })
-}); 
+	$(".devourIt").on("click", function(event) {
+      var id = $(this).attr("id");
+      
+      var devouredStatus = {
+          devoured: true,
+      } 
+      console.log(devouredStatus);
+  
+      // Send the PUT request.
+      $.ajax("/burgers/update/" + id, {
+        type: "PUT",
+        data: devouredStatus
+      }).then(
+        function() {
+          console.log("changed devoured to true");
+          // Reload the page to get the updated list
+          location.reload();
+        }
+      );
+    });
 </script>

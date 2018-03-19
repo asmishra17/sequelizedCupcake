@@ -9,11 +9,11 @@ router.get("/", function(req, res) {
 
 router.get("/burgers", function(req, res) {
   // express callback response by calling burger.selectAllBurger
-  db.Burger.findAll({
-
-  }).then(function(data) {
+  db.Burger.findAll({}).then(function(data) {
     // Wrapping the array of returned burgers in a object so it can be referenced inside our handlebars
-    var hbsObject = { burgers: data };
+    var hbsObject = { 
+      burgers: data
+    };
     res.render("index", hbsObject);
   });
 });
